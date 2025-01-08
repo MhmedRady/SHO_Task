@@ -1,0 +1,6 @@
+@SHO_Task.Api_HostAddress = http://localhost:5122
+
+GET {{SHO_Task.Api_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
