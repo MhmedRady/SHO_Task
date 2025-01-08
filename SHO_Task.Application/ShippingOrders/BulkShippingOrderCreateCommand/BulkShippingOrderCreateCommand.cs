@@ -9,7 +9,8 @@ public sealed record BulkShippingOrderCreateCommand(
     ): ICommand<IReadOnlyList<ShippingOrderCreateCommandResult>>;
 
 public sealed record BulkShippingOrderCommand(
-        SHONumberGeneratorType SHONumberType,
+        Guid PurchaseOrderId,
+        int PalletCount,
         IEnumerable<BulkShippingOrderItemCreateCommand> PO_Items
     ) : ICommand<IEnumerable<Guid>>;
 

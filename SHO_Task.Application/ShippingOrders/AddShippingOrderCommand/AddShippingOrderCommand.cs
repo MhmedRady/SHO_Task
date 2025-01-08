@@ -5,7 +5,8 @@ using SHO_Task.Domain.Users;
 namespace SHO_Task.Application.ShippingOrders;
 
 public sealed record AddShippingOrderCommand(
-        SHONumberGeneratorType SHONumberType,
+        Guid PurchaseOrderId,
+        int PalletCount,
         IReadOnlyList<ShippingOrderItemCommand> ShippingOrderItems
     ) : ICommand<ShippingOrderCreateCommandResult>;
 

@@ -11,13 +11,14 @@ using SHO_Task.Domain.Items;
 using SHO_Task.Domain.ShippingOrders;
 using SHO_Task.Application.Exceptions;
 using SHO_Task.Domain.Common;
+using SHO_Task.Application.Behaviors;
 
 namespace SHO_Task.Application.ShippingOrders;
 
 internal class AddShippingOrderCommandHandler(
-    SHONumberGeneratorFactory _SHONumberGeneratorFactory,
+    ShippingOrderDomainEventDispatcher _dispatcher,
     IShippingOrderRepository _sHORepository,
-    IUnitOfWork _unitOfWork) : ICommandHandler<AddShippingOrderCommand, ShippingOrderCreateCommandResult>
+    IUnitOfWork _unitOfWork) : ICommandHandler< AddShippingOrderCommand, ShippingOrderCreateCommandResult>
 {
     public async Task<ShippingOrderCreateCommandResult> Handle(AddShippingOrderCommand request, CancellationToken cancellationToken)
     {
@@ -30,8 +31,6 @@ internal class AddShippingOrderCommandHandler(
 
             var issueDate = DateTime.Now;
 
-            var SHONumber = _SHONumberGeneratorFactory.GetGenerator(request.SHONumberType).GenerateSHONumber(issueDate);
-
             var poItems = request.ShippingOrderItems.Select(poItem => CreateOredItem(ShippingOrderId, poItem)).ToArray();
 
             if (!poItems.Any())
@@ -39,17 +38,20 @@ internal class AddShippingOrderCommandHandler(
 
             var shippingOrder = ShippingOrder.CreateOrderInstance(
                     ShippingOrderId,
+                    request.PurchaseOrderId,
+                    request.PalletCount,
                     poItems
                 );
 
             await _sHORepository.AddAsync(shippingOrder);
             await _unitOfWork.CommitAsync(cancellationToken);
+            _dispatcher.DispatchDomainEvents(shippingOrder);
 
             return new ShippingOrderCreateCommandResult(shippingOrder.CreatedAt, shippingOrder.SHONumber);
         }
         catch (Exception ex)
         {
-            throw new ApplicationFlowException([new( nameof(AddShippingOrderCommandHandler), ex.Message)]);
+            throw new ApplicationFlowException([new(nameof(AddShippingOrderCommandHandler), ex.Message)]);
         }
     }
 
@@ -59,7 +61,6 @@ internal class AddShippingOrderCommandHandler(
         var orderItem = ShippingOrderItem.CreateInstance(
             ShippingOrderId,
             orderItemCommand.GoodCode,
-            //orderItemCommand.SerialNumber,
             orderItemCommand.Quantity,
             new Money(
                 orderItemCommand.Price * orderItemCommand.Quantity,

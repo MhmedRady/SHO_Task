@@ -4,7 +4,8 @@ using SHO_Task.Domain.ShippingOrders;
 namespace SHO_Task.Api.Controllers;
 
 public sealed record AddShippingOrderRequest(
-    PoNumberGeneratorType PONumberType,
+    Guid PurchaseOrderId,
+    int PalletCount,
     string PriceCurrencyCode,
     IReadOnlyList<AddShippingOrderItemRequest> ShippingOrderItems
     )
@@ -12,7 +13,8 @@ public sealed record AddShippingOrderRequest(
     public static implicit operator AddShippingOrderCommand(AddShippingOrderRequest request)
     {
         return new AddShippingOrderCommand(
-                request.PONumberType,
+                request.PurchaseOrderId,
+                request.PalletCount,
                 request.ShippingOrderItems.Select(poItem =>
                 new ShippingOrderItemCommand(
                     poItem.GoodCode,

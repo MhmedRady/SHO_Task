@@ -12,9 +12,9 @@ internal sealed class ShippingOrderRepository :
     {
     }
 
-    public async Task<ShippingOrder?> GetByPoNumber(string shoNumber, CancellationToken cancellationToken)
+    public async Task<ShippingOrder?> GetBySHONumber(string SHONumber, CancellationToken cancellationToken)
     {
-        return await GetBy(po => string.Equals(shoNumber, po.SHONumber, StringComparison.OrdinalIgnoreCase)).Include(p => p.ShippingOrderItems).FirstOrDefaultAsync(cancellationToken);
+        return await GetBy(po => string.Equals(SHONumber, po.SHONumber, StringComparison.OrdinalIgnoreCase)).Include(p => p.ShippingOrderItems).FirstOrDefaultAsync(cancellationToken);
     }
 
 

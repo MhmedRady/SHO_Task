@@ -11,13 +11,13 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Shipping", "Shipping", "{0A
 EndProject
 Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{140B0499-41E9-40FE-8F5E-C65FBC9F2021}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SHO_Task.Api", "SHO_Task.Api\SHO_Task.Api.csproj", "{5DA4E92A-CDF4-48DA-87DB-E951939C784C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SHO_Task.Api", "SHO_Task.Api\SHO_Task.Api.csproj", "{5DA4E92A-CDF4-48DA-87DB-E951939C784C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SHO_Task.Domain", "SHO_Task.Domain\SHO_Task.Domain.csproj", "{FD7B9E20-D843-482C-96D4-5FD981A73CF2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SHO_Task.Domain", "SHO_Task.Domain\SHO_Task.Domain.csproj", "{FD7B9E20-D843-482C-96D4-5FD981A73CF2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SHO_Task.Infrastructure", "SHO_Task.Infrastructure\SHO_Task.Infrastructure.csproj", "{CF58071C-0F2E-4BA5-AE43-1DF47B370563}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SHO_Task.Infrastructure", "SHO_Task.Infrastructure\SHO_Task.Infrastructure.csproj", "{CF58071C-0F2E-4BA5-AE43-1DF47B370563}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SHO_Task.Application", "SHO_Task.Application\SHO_Task.Application.csproj", "{C54FA1E7-4042-4C32-8410-792B6631D8BD}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SHO_Task.Application", "SHO_Task.Application\SHO_Task.Application.csproj", "{C54FA1E7-4042-4C32-8410-792B6631D8BD}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

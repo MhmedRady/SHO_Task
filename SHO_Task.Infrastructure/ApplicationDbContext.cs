@@ -26,7 +26,7 @@ public sealed class ApplicationDbContext: DbContext, IUnitOfWork
         TypeNameHandling = TypeNameHandling.All
     };
 
-    public DbSet<User> user_profile { get; set; }
+    //public DbSet<User> user_profile { get; set; }
     public DbSet<ShippingOrder> ShippingOrders { get; set; }
     public DbSet<ShippingOrderItem> ShippingOrderItems { get; set; }
 

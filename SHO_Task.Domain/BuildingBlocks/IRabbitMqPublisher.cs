@@ -6,8 +6,8 @@ using System.Threading.Tasks;
 
 namespace SHO_Task.Domain.BuildingBlocks
 {
-    public interface ISHONumberGenerator
+    public interface IRabbitMqPublisher
     {
-        string GenerateSHONumber(DateTime createdDate);
+        void Publish<T>(T message, string exchangeName, string routingKey);
     }
 }

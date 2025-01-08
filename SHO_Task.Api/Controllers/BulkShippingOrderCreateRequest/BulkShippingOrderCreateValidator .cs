@@ -19,13 +19,8 @@ public class BulkShippingOrderRequestValidator : AbstractValidator<BulkShippingO
 {
     public BulkShippingOrderRequestValidator()
     {
-        RuleFor(x => x.PoNumberType)
-            .IsInEnum().WithMessage("Invalid PO Number Type Nust Be 0 => New Or 1 => Old.");
-
-        RuleFor(x => x.PriceCurrencyCode)
-            .NotEmpty().WithMessage("PriceCurrencyCode is required Should be in [EGP, USD, EUR].")
-            .Length(3).WithMessage("PriceCurrencyCode must be exactly 3 characters, Should be in [EGP, USD, EUR].") // ISO currency code format
-            .Matches("^[A-Z]{3}$").WithMessage("PriceCurrencyCode must be uppercase alphabetical characters, Should be in [EGP, USD, EUR].");
+        RuleFor(x => x.PurchaseOrderId)
+            .NotEmpty().WithMessage("PurchaseOrderId is required Should be in Guid.");
 
         RuleForEach(x => x.ShippingOrderItems)
             .SetValidator(new BulkShippingOrderItemRequestValidator())

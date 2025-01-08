@@ -13,7 +13,6 @@ namespace SHO_Task.Application.ShippingOrders;
 
 // ReSharper disable once ClassNeverInstantiated.Global
 public sealed class BulkShippingOrderCreateCommandHandler(
-    SHONumberGeneratorFactory _SHONumberGeneratorFactory,
     IShippingOrderRepository _PoRepository,
     IUnitOfWork _unitOfWork) : ICommandHandler<BulkShippingOrderCreateCommand,
         IReadOnlyList<ShippingOrderCreateCommandResult>>
@@ -37,11 +36,10 @@ public sealed class BulkShippingOrderCreateCommandHandler(
             
             try
             {
-                
-                ShippingOrderId POrderId = ShippingOrderId.CreateUnique();
+                ShippingOrderId SHoOrderId = ShippingOrderId.CreateUnique();
                 var poItems = poRequest.PO_Items.Select(itemCmd =>
                     CreateOredItem(
-                        ShippingOrderId: POrderId,
+                        ShippingOrderId: SHoOrderId,
                         orderItemCommand: itemCmd
                     )
                 ).ToArray();
@@ -51,12 +49,10 @@ public sealed class BulkShippingOrderCreateCommandHandler(
 
                 DateTime issueDate = DateTime.Now;
 
-                var SHONumber = _SHONumberGeneratorFactory.GetGenerator(poRequest.SHONumberType).GenerateSHONumber(issueDate);
-
                 var po = ShippingOrder.CreateOrderInstance(
-                    POrderId,
-                    issueDate,
-                    SHONumber,
+                    SHoOrderId,
+                    poRequest.PurchaseOrderId,
+                    poRequest.PalletCount,
                     poItems
                 );
 

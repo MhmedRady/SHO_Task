@@ -11,7 +11,7 @@ namespace SHO_Task.Domain
 {
     public interface IShippingOrderRepository
     {
-        Task<ShippingOrder?> GetByPoNumber(string poNumber, CancellationToken cancellationToken);
+        Task<ShippingOrder?> GetBySHONumber(string SHONumber, CancellationToken cancellationToken);
         Task AddAsync(ShippingOrder ShippingOrder);
         void Update(ShippingOrder ShippingOrder);
         void Delete(ShippingOrder ShippingOrder);

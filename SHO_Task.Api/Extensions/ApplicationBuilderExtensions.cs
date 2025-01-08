@@ -7,7 +7,7 @@ namespace SHO_Task.Api.Extensions;
 
 internal static class ApplicationBuilderExtensions
 {
-    public static async void ApplyMigrations(this IApplicationBuilder applicationBuilder)
+    public static void ApplyMigrations(this IApplicationBuilder applicationBuilder)
     {
         using IServiceScope scope = applicationBuilder.ApplicationServices.CreateScope();
 
@@ -16,7 +16,6 @@ internal static class ApplicationBuilderExtensions
         try
         {
             dbContext.Database.Migrate();
-            await UsersSeeding(dbContext);
         }
         catch (Exception ex)
         {
@@ -37,18 +36,5 @@ internal static class ApplicationBuilderExtensions
         app.UseMiddleware<RequestContextLoggingMiddleware>();
 
         return app;
-    }
-
-    public static async Task UsersSeeding(ApplicationDbContext dbContext)
-    {
-        if (dbContext.user_profile.Any())
-            return;
-
-        for (int i = 1; i < 5; i++)
-        {
-            await dbContext.user_profile.AddAsync(User.CreateInstance(new("Mohamed"), new($"R{i}"), new($"MohamedR{i}@PO.com")));
-        }
-
-        await dbContext.SaveChangesAsync();
     }
 }

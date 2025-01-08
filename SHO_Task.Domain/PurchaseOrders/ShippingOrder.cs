@@ -14,15 +14,18 @@ public enum SHOState
     Closed
 }
 
-public class ShippingOrder : Entity<ShippingOrderId>, IAggregateRoot
+public sealed class ShippingOrder : Entity<ShippingOrderId>, IAggregateRoot
 {
     private readonly List<ShippingOrderItem> _items = new();
 
     private ShippingOrder() { }
 
-    private ShippingOrder(ShippingOrderId orderId)
+    private ShippingOrder(ShippingOrderId shippingOrderId, Guid purchaseOrderId,
+            int palletCount)
     {
-        Id = orderId;
+        Id = shippingOrderId;
+        PurchaseOrderId = purchaseOrderId; 
+        PalletCount = palletCount;
     }
 
     public string SHONumber { get; private set; }
@@ -50,10 +53,12 @@ public class ShippingOrder : Entity<ShippingOrderId>, IAggregateRoot
 
     public static ShippingOrder CreateOrderInstance(
             ShippingOrderId shippingOrderId,
+            Guid PurchaseOrderId,
+            int PalletCount,
             IEnumerable<ShippingOrderItem> shippingOrderItems
         )
     {
-        ShippingOrder sho = new ShippingOrder(shippingOrderId);
+        ShippingOrder sho = new ShippingOrder(shippingOrderId, PurchaseOrderId, PalletCount);
 
         DateTime IssueDate = DateTime.UtcNow;
 
@@ -66,7 +71,7 @@ public class ShippingOrder : Entity<ShippingOrderId>, IAggregateRoot
             sho.AddOrderItem(poItem);
         }
 
-        sho.RaiseDomainEvent(new ShippingOrderCreatedDomainEvent { Id = shippingOrderId.Value, PONumber = sho.SHONumber });
+        sho.RaiseDomainEvent(new ShippingOrderCreatedDomainEvent { ShippingOrderId = shippingOrderId.Value, SHONumber = sho.SHONumber, PurchaseOrderId = sho.PurchaseOrderId });
 
         return sho;
     }
@@ -88,5 +93,7 @@ public class ShippingOrder : Entity<ShippingOrderId>, IAggregateRoot
         {
             State = SHOState.Closed;
         }
+
+        this.RaiseDomainEvent(new ShippingOrderClosedDomainEvent( ShippingOrderId: Id.Value, PurchaseOrderId: PurchaseOrderId, SHONumber: SHONumber ));
     }
 }

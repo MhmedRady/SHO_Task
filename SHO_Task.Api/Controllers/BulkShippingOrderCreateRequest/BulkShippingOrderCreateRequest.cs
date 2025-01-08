@@ -13,14 +13,16 @@ public sealed record BulkShippingOrderCreateRequest(
         return new BulkShippingOrderCreateCommand(
                 request.ShippingOrderRequests.Select(poReuest =>
                         new BulkShippingOrderCommand(
-                            poReuest.PoNumberType,
+                            poReuest.PurchaseOrderId,
+                            poReuest.PalletCount,
                             PO_Items: poReuest.ShippingOrderItems.Select(poItemRequest =>
-                                    new BulkShippingOrderItemCreateCommand(
-                                            poItemRequest.GoodCode,
-                                            poItemRequest.Quantity,
-                                            poItemRequest.Price,
-                                            poReuest.PriceCurrencyCode
-                                        )
+                                    new BulkShippingOrderItemCreateCommand
+                                    (
+                                        poItemRequest.GoodCode,
+                                        poItemRequest.Quantity,
+                                        poItemRequest.Price,
+                                        "EGP"
+                                    )
                                 )
                             )
                     ).ToArray()
@@ -29,8 +31,8 @@ public sealed record BulkShippingOrderCreateRequest(
 }
 
 public sealed record BulkShippingOrderRequest(
-        PoNumberGeneratorType PoNumberType,
-        string PriceCurrencyCode,
+        Guid PurchaseOrderId,
+        int PalletCount,
         IEnumerable<BulkShippingOrderItemRequest> ShippingOrderItems
     );
 
