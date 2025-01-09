@@ -55,7 +55,7 @@ internal sealed class ExceptionHandlingMiddleware
     {
         return exception switch
         {
-            ValidationException validationException => 
+            ValidationException validationException =>
                 new ExceptionDetails(
                     StatusCodes.Status400BadRequest,
                     "ValidationFailure",
@@ -69,7 +69,7 @@ internal sealed class ExceptionHandlingMiddleware
                     "Application flow error",
                     "An error has occurred during the application flow",
                 applicationFlowException.Errors),
-            BusinessRuleException businessRuleValidationException => 
+            BusinessRuleException businessRuleValidationException =>
                 new ExceptionDetails(
                     StatusCodes.Status400BadRequest,
                     "BusinessRuleValidationFailure",

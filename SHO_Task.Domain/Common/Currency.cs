@@ -12,7 +12,7 @@ public sealed record Currency
     private Currency() { }
     private Currency(string code)
     {
-        Code = !string.IsNullOrWhiteSpace(code) 
+        Code = !string.IsNullOrWhiteSpace(code)
             ? code
             : throw new ArgumentException("Currency code cannot be null or empty.");
     }

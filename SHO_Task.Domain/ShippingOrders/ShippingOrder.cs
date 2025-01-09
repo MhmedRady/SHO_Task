@@ -1,7 +1,5 @@
 using SHO_Task.Domain.BuildingBlocks;
-using SHO_Task.Domain.Common;
 using SHO_Task.Domain.Items;
-using SHO_Task.Domain.Users;
 using SHO_Task.Domain.Users.Events;
 using System.Collections.ObjectModel;
 
@@ -24,7 +22,7 @@ public sealed class ShippingOrder : Entity<ShippingOrderId>, IAggregateRoot
             int palletCount)
     {
         Id = shippingOrderId;
-        PurchaseOrderId = purchaseOrderId; 
+        PurchaseOrderId = purchaseOrderId;
         PalletCount = palletCount;
     }
 
@@ -94,6 +92,6 @@ public sealed class ShippingOrder : Entity<ShippingOrderId>, IAggregateRoot
             State = SHOState.Closed;
         }
 
-        this.RaiseDomainEvent(new ShippingOrderClosedDomainEvent( ShippingOrderId: Id.Value, PurchaseOrderId: PurchaseOrderId, SHONumber: SHONumber, DeliveryDate ));
+        this.RaiseDomainEvent(new ShippingOrderClosedDomainEvent(ShippingOrderId: Id.Value, PurchaseOrderId: PurchaseOrderId, SHONumber: SHONumber, DeliveryDate));
     }
 }

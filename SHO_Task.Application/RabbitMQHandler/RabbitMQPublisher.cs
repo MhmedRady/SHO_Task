@@ -11,7 +11,7 @@ public class RabbitMQPublisher : IDisposable
 
     public void Dispose()
     {
-        
+
     }
 
     public async void Publish<T>(T message)
@@ -39,7 +39,7 @@ public class RabbitMQPublisher : IDisposable
             Console.WriteLine($"Message published to queue {_queueName}: {messageBody}");
         }
         catch (Exception ex) { }
-        finally { await channel.CloseAsync(); } 
-        
+        finally { await channel.CloseAsync(); }
+
     }
 }

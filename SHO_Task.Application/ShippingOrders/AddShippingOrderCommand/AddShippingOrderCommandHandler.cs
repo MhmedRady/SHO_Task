@@ -1,24 +1,18 @@
 ﻿using SHO_Task.Application.Abstractions.Messaging;
-using SHO_Task.Domain.BuildingBlocks;
-using SHO_Task.Domain.Users;
+using SHO_Task.Application.Exceptions;
+using SHO_Task.Application.IntegrationEvents.SHO_Task.Application.IntegrationEvents;
 using SHO_Task.Domain;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using SHO_Task.Domain.BuildingBlocks;
+using SHO_Task.Domain.Common;
 using SHO_Task.Domain.Items;
 using SHO_Task.Domain.ShippingOrders;
-using SHO_Task.Application.Exceptions;
-using SHO_Task.Domain.Common;
-using SHO_Task.Application.IntegrationEvents.SHO_Task.Application.IntegrationEvents;
 
 namespace SHO_Task.Application.ShippingOrders;
 
 internal class AddShippingOrderCommandHandler(
     IntegrationEventPublisher _integrationEventPublisher,
     IShippingOrderRepository _sHORepository,
-    IUnitOfWork _unitOfWork) : ICommandHandler< AddShippingOrderCommand, ShippingOrderCreateCommandResult>
+    IUnitOfWork _unitOfWork) : ICommandHandler<AddShippingOrderCommand, ShippingOrderCreateCommandResult>
 {
     public async Task<ShippingOrderCreateCommandResult> Handle(AddShippingOrderCommand request, CancellationToken cancellationToken)
     {

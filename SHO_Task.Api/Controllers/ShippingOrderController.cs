@@ -1,5 +1,4 @@
 ﻿using Aswaq.Api.Controllers;
-using Azure.Core;
 using FluentValidation;
 using FluentValidation.Results;
 using MediatR;
@@ -37,7 +36,7 @@ namespace SHO_Task.Api.Controllers
 
             BulkShippingOrderCreateCommand bulkShippingOrderCommand = requests;
             var listPOIDs = await _sender.Send(bulkShippingOrderCommand);
-            return !listPOIDs.Any()? BadRequest(): Ok(listPOIDs);
+            return !listPOIDs.Any() ? BadRequest() : Ok(listPOIDs);
         }
     }
 }

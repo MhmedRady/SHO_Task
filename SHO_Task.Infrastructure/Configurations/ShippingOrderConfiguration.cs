@@ -3,7 +3,6 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using SHO_Task.Domain.Common;
 using SHO_Task.Domain.Items;
 using SHO_Task.Domain.ShippingOrders;
-using SHO_Task.Domain.Users;
 
 namespace SHO_Task.Infrastructure.Configurations
 {

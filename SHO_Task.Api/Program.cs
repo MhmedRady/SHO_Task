@@ -1,7 +1,7 @@
+using Serilog;
 using SHO_Task.Api.Extensions;
 using SHO_Task.Application;
 using SHO_Task.Infrastructure;
-using Serilog;
 
 var builder = WebApplication.CreateBuilder(args);
 

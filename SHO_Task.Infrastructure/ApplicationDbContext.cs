@@ -6,13 +6,11 @@ using SHO_Task.Application.Exceptions;
 using SHO_Task.Domain.BuildingBlocks;
 using SHO_Task.Domain.Items;
 using SHO_Task.Domain.ShippingOrders;
-using SHO_Task.Domain.Users;
 using SHO_Task.Infrastructure.Outbox;
-using System.Linq;
 
 namespace SHO_Task.Infrastructure;
 
-public sealed class ApplicationDbContext: DbContext, IUnitOfWork
+public sealed class ApplicationDbContext : DbContext, IUnitOfWork
 {
     private IDbContextTransaction _currentTransaction;
     private readonly IDateTimeProvider _dateTimeProvider;
@@ -37,7 +35,7 @@ public sealed class ApplicationDbContext: DbContext, IUnitOfWork
             AddDomainEventsAsOutboxMessages();
 
             int result = await base.SaveChangesAsync(cancellationToken);
-            
+
             return result;
         }
         catch (DbUpdateConcurrencyException ex)
@@ -78,7 +76,7 @@ public sealed class ApplicationDbContext: DbContext, IUnitOfWork
 
     public async Task BeginTransactionAsync(CancellationToken cancellationToken)
     {
-        if(_currentTransaction != null)
+        if (_currentTransaction != null)
             return;
         //base.ChangeTracker.Clear();
         _currentTransaction = await base.Database.BeginTransactionAsync(cancellationToken);
@@ -100,7 +98,7 @@ public sealed class ApplicationDbContext: DbContext, IUnitOfWork
         }
         finally
         {
-            
+
         }
     }
 

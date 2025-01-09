@@ -1,6 +1,6 @@
-﻿using SHO_Task.Infrastructure.Outbox;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using SHO_Task.Infrastructure.Outbox;
 
 namespace SHO_Task.Infrastructure.Configurations;
 

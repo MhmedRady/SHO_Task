@@ -1,6 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using SHO_Task.Api.Middleware;
-using SHO_Task.Domain.Users;
 using SHO_Task.Infrastructure;
 
 namespace SHO_Task.Api.Extensions;

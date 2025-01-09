@@ -1,8 +1,6 @@
-﻿using SHO_Task.Domain.BuildingBlocks;
-using Microsoft.EntityFrameworkCore;
-using System.Threading;
+﻿using Microsoft.EntityFrameworkCore;
+using SHO_Task.Domain.BuildingBlocks;
 using System.Linq.Expressions;
-using Microsoft.EntityFrameworkCore.Storage;
 
 namespace SHO_Task.Infrastructure.Repositories;
 
@@ -30,8 +28,8 @@ internal abstract class Repository<T, TId> where T : Entity<TId> where TId : not
 
     public virtual async Task AddAsync(T entity)
     {
-       //EntityStateDetached(entity);
-       await DbContext.AddAsync(entity);
+        //EntityStateDetached(entity);
+        await DbContext.AddAsync(entity);
     }
 
     public virtual void Update(T entity)

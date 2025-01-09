@@ -1,13 +1,10 @@
-﻿using Microsoft.EntityFrameworkCore;
-using Microsoft.IdentityModel.Tokens;
-using SHO_Task.Application.Abstractions.Messaging;
+﻿using SHO_Task.Application.Abstractions.Messaging;
 using SHO_Task.Application.Exceptions;
 using SHO_Task.Domain;
 using SHO_Task.Domain.BuildingBlocks;
 using SHO_Task.Domain.Common;
 using SHO_Task.Domain.Items;
 using SHO_Task.Domain.ShippingOrders;
-using SHO_Task.Domain.Users;
 
 namespace SHO_Task.Application.ShippingOrders;
 
@@ -22,7 +19,7 @@ public sealed class BulkShippingOrderCreateCommandHandler(
         BulkShippingOrderCreateCommand request,
         CancellationToken cancellationToken)
     {
-        
+
         var createdShippingOrderIds = new List<ShippingOrderCreateCommandResult>();
         var createdShippingOrder = new List<ShippingOrder>();
         var errors = new List<ApplicationError>();
@@ -33,7 +30,7 @@ public sealed class BulkShippingOrderCreateCommandHandler(
 
         foreach (var poRequest in request.BulkShippingOrderCommands)
         {
-            
+
             try
             {
                 ShippingOrderId SHoOrderId = ShippingOrderId.CreateUnique();
@@ -45,7 +42,7 @@ public sealed class BulkShippingOrderCreateCommandHandler(
                 ).ToArray();
 
                 if (!poItems.Any())
-                        errors.Add(BulkShippingOrderCreateCommandErrors.PurchaserItemIsEmpty(poRequestIndex));
+                    errors.Add(BulkShippingOrderCreateCommandErrors.PurchaserItemIsEmpty(poRequestIndex));
 
                 DateTime issueDate = DateTime.Now;
 
@@ -83,8 +80,8 @@ public sealed class BulkShippingOrderCreateCommandHandler(
         {
             await _unitOfWork.CommitAsync(cancellationToken);
         }
-        catch (Exception ex) 
-        { 
+        catch (Exception ex)
+        {
             await _unitOfWork.RollbackAsync(cancellationToken);
             throw new InvalidOperationException(nameof(BulkShippingOrderCreateCommandHandler), ex);
         }

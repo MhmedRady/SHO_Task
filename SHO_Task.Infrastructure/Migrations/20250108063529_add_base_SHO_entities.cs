@@ -1,5 +1,4 @@
-﻿using System;
-using Microsoft.EntityFrameworkCore.Migrations;
+﻿using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
@@ -13,7 +12,7 @@ namespace SHO_Task.Infrastructure.Migrations
         {
             migrationBuilder.EnsureSchema(
                 name: "SHO");
-            
+
             migrationBuilder.CreateTable(
                 name: "outbox_messages",
                 columns: table => new

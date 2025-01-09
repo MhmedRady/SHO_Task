@@ -1,6 +1,4 @@
 using SHO_Task.Application.Abstractions.Messaging;
-using SHO_Task.Domain.ShippingOrders;
-using SHO_Task.Domain.Users;
 
 namespace SHO_Task.Application.ShippingOrders;
 

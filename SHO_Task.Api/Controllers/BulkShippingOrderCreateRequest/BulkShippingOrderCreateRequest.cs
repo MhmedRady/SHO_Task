@@ -1,5 +1,4 @@
 using SHO_Task.Application.ShippingOrders;
-using SHO_Task.Domain.ShippingOrders;
 
 namespace SHO_Task.Api.Controllers;
 

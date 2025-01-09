@@ -1,13 +1,11 @@
-﻿using SHO_Task.Domain.BuildingBlocks;
-
-namespace SHO_Task.Domain.Common;
+﻿namespace SHO_Task.Domain.Common;
 
 public sealed record Money
 {
     public decimal Amount { get; init; }
     public Currency Currency { get; init; }
 
-    private Money() { } 
+    private Money() { }
 
     public Money(decimal amount, Currency currency)
     {
@@ -52,10 +50,10 @@ public sealed record Money
     }
 
     public Money Add(Money other)
-{
-    if (Currency != other.Currency)
-        throw new InvalidOperationException("Cannot add Money with different currencies.");
+    {
+        if (Currency != other.Currency)
+            throw new InvalidOperationException("Cannot add Money with different currencies.");
 
-    return new Money(Amount + other.Amount, Currency);
-}
+        return new Money(Amount + other.Amount, Currency);
+    }
 }
