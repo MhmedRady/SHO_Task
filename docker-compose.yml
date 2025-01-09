@@ -1,7 +1,7 @@
 version: "3.9"
 services:
   SHO_Task.api:
-    image: ${DOCKER_REGISTRY-}potaskapi
+    image: ${DOCKER_REGISTRY-}shotaskapi
     container_name: SHO_Task.Api
     build:
       context: .
@@ -12,26 +12,29 @@ services:
       - ASPNETCORE_URLS=http://+:7199
       - ASPNETCORE_ENVIRONMENT=Development
       - ConnectionStrings__DefaultConnection=Server=sho-db;Database=SHO_TaskDB;User Id=sa;Password=admin@123;TrustServerCertificate=True;
+      - RabbitMQ__Host=rabbitmq-demo
+      - RabbitMQ__Username=guest
+      - RabbitMQ__Password=guest
     depends_on:
       - sho-db
     networks:
-      - appnetwork
+      - po_demo_appnetwork
 
   sho-db:
     image: mcr.microsoft.com/mssql/server:2022-latest
     container_name: sho-db
     ports:
-      - "1435:1433" # Map SQL Server port to host
+      - "1435:1433"
     environment:
       SA_PASSWORD: "admin@123"
       ACCEPT_EULA: "Y"
     networks:
-      - appnetwork
+      - po_demo_appnetwork
     volumes:
       - shosqlserverdata:/var/opt/mssql
 
 networks:
-  appnetwork:
+  po_demo_appnetwork:
 
 volumes:
   shosqlserverdata:

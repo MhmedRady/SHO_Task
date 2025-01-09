@@ -9,7 +9,7 @@ public sealed record ShippingOrderCreatedDomainEvent : IDomainEvent
     public Guid ShippingOrderId { get; init; }
     public Guid PurchaseOrderId {  get; init; }
     public string SHONumber { get; init; }
-
+   public DateTime DeliveryDate { get; init; }
 }
 
-public record ShippingOrderClosedDomainEvent(Guid ShippingOrderId, Guid PurchaseOrderId, string SHONumber) : IDomainEvent;
+public record ShippingOrderClosedDomainEvent(Guid ShippingOrderId, Guid PurchaseOrderId, string SHONumber, DateTime DeliveryDate) : IDomainEvent;

@@ -1,17 +1,11 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.IdentityModel.Tokens;
 using SHO_Task.Application.Abstractions;
-using SHO_Task.Application.Behaviors;
-using SHO_Task.Application.ShippingOrders;
 using SHO_Task.Domain;
 using SHO_Task.Domain.BuildingBlocks;
-using SHO_Task.Domain.ShippingOrders;
-using SHO_Task.Domain.Users;
 using SHO_Task.Infrastructure.Clock;
 using SHO_Task.Infrastructure.Interceptors;
-using SHO_Task.Infrastructure.RabbitMq;
 using SHO_Task.Infrastructure.Repositories;
 
 namespace SHO_Task.Infrastructure;
@@ -50,8 +44,6 @@ public static class DependencyInjection
 
         services.AddSingleton<ISqlConnectionFactory>(_ => new SqlConnectionFactory(connectionString));
 
-        services.AddSingleton<IRabbitMqPublisher>(new RabbitMqPublisher("http://localhost:7188"));
 
-        services.AddSingleton<ShippingOrderDomainEventDispatcher>();
     }
 }

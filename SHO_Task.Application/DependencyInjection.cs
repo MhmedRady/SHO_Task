@@ -1,8 +1,7 @@
 ﻿using FluentValidation;
 using Microsoft.Extensions.DependencyInjection;
 using SHO_Task.Application.Abstractions.Behaviors;
-using SHO_Task.Application.Behaviors;
-using SHO_Task.Domain.BuildingBlocks;
+using SHO_Task.Application.IntegrationEvents.SHO_Task.Application.IntegrationEvents;
 
 namespace SHO_Task.Application;
 
@@ -20,8 +19,12 @@ public static class DependencyInjection
                 configuration.AddOpenBehavior(typeof(ValidationBehavior<,>));
             });
 
+
         services.AddValidatorsFromAssembly(
         typeof(DependencyInjection).Assembly, includeInternalTypes: true);
+
+        services.AddSingleton<IntegrationEventPublisher>();
+        services.AddSingleton<RabbitMQPublisher>();
 
         return services;
     }

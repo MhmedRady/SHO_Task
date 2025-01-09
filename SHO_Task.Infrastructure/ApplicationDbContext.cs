@@ -58,14 +58,14 @@ public sealed class ApplicationDbContext: DbContext, IUnitOfWork
         var outboxMessages = ChangeTracker
             .Entries<IHasEvents>()
             .Select(entry => entry.Entity)
-            .SelectMany(entity =>
+            /*.SelectMany(entity =>
             {
                 IReadOnlyList<IDomainEvent> domainEvents = entity.GetDomainEvents();
                 
                 entity.ClearDomainEvents();
 
                 return domainEvents;
-            })
+            })*/
             .Select(domainEvent => new OutboxMessage(
                 Guid.NewGuid(),
                 _dateTimeProvider.UtcNow,

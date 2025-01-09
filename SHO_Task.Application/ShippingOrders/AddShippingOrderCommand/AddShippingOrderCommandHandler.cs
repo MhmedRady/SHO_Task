@@ -11,12 +11,12 @@ using SHO_Task.Domain.Items;
 using SHO_Task.Domain.ShippingOrders;
 using SHO_Task.Application.Exceptions;
 using SHO_Task.Domain.Common;
-using SHO_Task.Application.Behaviors;
+using SHO_Task.Application.IntegrationEvents.SHO_Task.Application.IntegrationEvents;
 
 namespace SHO_Task.Application.ShippingOrders;
 
 internal class AddShippingOrderCommandHandler(
-    ShippingOrderDomainEventDispatcher _dispatcher,
+    IntegrationEventPublisher _integrationEventPublisher,
     IShippingOrderRepository _sHORepository,
     IUnitOfWork _unitOfWork) : ICommandHandler< AddShippingOrderCommand, ShippingOrderCreateCommandResult>
 {
@@ -45,8 +45,7 @@ internal class AddShippingOrderCommandHandler(
 
             await _sHORepository.AddAsync(shippingOrder);
             await _unitOfWork.CommitAsync(cancellationToken);
-            _dispatcher.DispatchDomainEvents(shippingOrder);
-
+            _integrationEventPublisher.PublishShippingOrderCreated(shippingOrder.Id.Value, request.PurchaseOrderId, shippingOrder.SHONumber, issueDate);
             return new ShippingOrderCreateCommandResult(shippingOrder.CreatedAt, shippingOrder.SHONumber);
         }
         catch (Exception ex)

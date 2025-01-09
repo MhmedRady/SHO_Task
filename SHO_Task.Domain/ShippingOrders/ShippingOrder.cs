@@ -71,7 +71,7 @@ public sealed class ShippingOrder : Entity<ShippingOrderId>, IAggregateRoot
             sho.AddOrderItem(poItem);
         }
 
-        sho.RaiseDomainEvent(new ShippingOrderCreatedDomainEvent { ShippingOrderId = shippingOrderId.Value, SHONumber = sho.SHONumber, PurchaseOrderId = sho.PurchaseOrderId });
+        sho.RaiseDomainEvent(new ShippingOrderCreatedDomainEvent { ShippingOrderId = shippingOrderId.Value, SHONumber = sho.SHONumber, PurchaseOrderId = sho.PurchaseOrderId, DeliveryDate = IssueDate });
 
         return sho;
     }
@@ -94,6 +94,6 @@ public sealed class ShippingOrder : Entity<ShippingOrderId>, IAggregateRoot
             State = SHOState.Closed;
         }
 
-        this.RaiseDomainEvent(new ShippingOrderClosedDomainEvent( ShippingOrderId: Id.Value, PurchaseOrderId: PurchaseOrderId, SHONumber: SHONumber ));
+        this.RaiseDomainEvent(new ShippingOrderClosedDomainEvent( ShippingOrderId: Id.Value, PurchaseOrderId: PurchaseOrderId, SHONumber: SHONumber, DeliveryDate ));
     }
 }
